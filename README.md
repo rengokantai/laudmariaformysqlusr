@@ -49,3 +49,25 @@ to remove a attr, use column_delete
 ```
 update items set extra=column_delete(extra, 'color') where type='cd'; 
 ```
+######adding a dynamic column part
+add a attr
+```
+update items set extra=column_add(extra, 'in_stock',10) where type='cd';
+```
+column check
+```
+select title,type,column_check(extra) from items where 1=1;
+```
+update
+```
+update items set extra='test' where column_get(extra,'color' as char)='blue';
+select title,type,column_check(extra) from items where 1=1;  -- return 0
+update items set extra=column_create('color','blue','size','2') where extra='test';
+select title,type,column_check(extra) from items where 1=1;  --return 1
+```
+
+add a attr when extra is null
+```
+update items set extra=column_create('in stock',20) where column_check(extra) is null;
+update items set extra=column_add(extra, 'in stock',20) where column_check(extra)=1;
+```
