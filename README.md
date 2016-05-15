@@ -37,4 +37,15 @@ select title,type,column_list(extra) from items where 1=1;
 ```
 column_json
 ```
+select title,type,column_json(extra) from items where 1=1;
+```
+######update
+```
+update items set extra=column_add(extra, 'color','blue','size','2') where type='cd';
+update items set extra=column_add(extra, 'color','blue') where type='cd';  -- this will only update color, but keep size
+select title,type,column_json(extra) from items where type='cd';
+```
+to remove a attr, use column_delete
+```
+update items set extra=column_delete(extra, 'color') where type='cd'; 
 ```
