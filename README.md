@@ -81,3 +81,23 @@ add a attr when extra is null
 update items set extra=column_create('in stock',20) where column_check(extra) is null;
 update items set extra=column_add(extra, 'in stock',20) where column_check(extra)=1;
 ```
+
+###4. The Cassandra Storage Engine
+####1 Cassandra storage engine overview
+```
+mysql -u root -p root -e "SHOW variables like 'plugin_dir';"
+```
+list 1 file per line
+```
+ls -1 ...
+```
+install this plugin
+```
+install plugin cassandra soname 'ha_cassandra';
+```
+cassandra avail in mdb:
+```
+cassandra_failure_retries //default=3
+cassandra_timeout_exceptions
+cassandra_unavailable_exceptions
+```
