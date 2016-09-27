@@ -101,3 +101,21 @@ cassandra_failure_retries //default=3
 cassandra_timeout_exceptions
 cassandra_unavailable_exceptions
 ```
+####2 Creating a table
+data type"
+cassandra->maria:
+```
+boolean->BOOL
+float->FLOAT
+double->DOUBLE
+int->INT
+blob->BLOB,VARBINARY
+timestamp->TIMESTAMP,BIGINT(timestamp use micorsec,BINGINT gets millsec since epoch)
+bigint->TINYINT,BIGINT,MEDIUMINT,INT
+varint->VARBINARY
+decinal->VARBINARY
+ascii->BLOB,VARCHAR(latin1)
+text->BLOB,VARCHAR(utf8)
+uuid->CHAR(36)
+counter->BININT(readonly)
+```
