@@ -121,9 +121,33 @@ test
 ```
 select * from tbname;
 ```
+####4 Executing batch commands on a remote database
+Execute code  
+execsrc=1  
+flag=0: default; command to be run  
+flag=1: DML(affected rows)  
+flag=2: mwssage returned  
+flag=3: warnings returned  
+
+create table tbname_remote:
+```
+create table tbname_remote (
+command varchar(255) not null, 
+message varchar(255) flag=2, 
+cols_rows int not null flag=1, 
+warnings not null flag=3)
+engine=connect table_type=mysql 
+connection='mysql://user:pass@remotehost.com:3306/remotetable option_list='execsrc=1';
+```
 
 
-
+execute commands:
+```
+select command,cols_rows, message, warnings from tbname_remote where command in (
+"insert into tbname(auth,mytest)values('','')",
+"alter table tbname add column tx timestamp default current_timestamp on update current_timestamp",
+"update tbname set auth='' where 1=1")
+```
 
 
 
@@ -222,3 +246,4 @@ cassandra_multiget_keys_scanned
 cassandra_multiget_reads
 cassandra_multiget_rows_read
 ```
+
