@@ -82,6 +82,55 @@ update items set extra=column_create('in stock',20) where column_check(extra) is
 update items set extra=column_add(extra, 'in stock',20) where column_check(extra)=1;
 ```
 
+
+###2. The power of CONNECT
+####2 Installing the CONNECT storage engine
+check install status
+```
+select plugin_status from information_schama.plugins where plugin_name='connect';
+```
+show plugin_dir
+```
+show variables like 'plugin_dir';
+```
+
+execute linux command in mysql :
+```
+\! ls -l /usr/lib/mysql/plugin
+```
+install connect plugin:
+```
+install plugin connect soname 'ha_connect';
+```
+show engines
+```
+select * from information_schema.engines where engine='connect' limit 5;
+```
+
+
+####3 Connecting to a remote MySQL database
+```
+show variables like 'hostname';
+```
+
+create a table at local machine, copy from remote machine
+```
+create table tbname engine=connect table_type=mysql connection='mysql://user:pass@remotehost.com:3306/remotetable';
+```
+test
+```
+select * from tbname;
+```
+
+
+
+
+
+
+
+
+
+
 ###4. The Cassandra Storage Engine
 ####1 Cassandra storage engine overview
 ```
@@ -166,4 +215,10 @@ join_cache_level=7/8
 ######Batched key access
 ```
 cassandra_multiget_batch_size //set batch size
+```
+
+```
+cassandra_multiget_keys_scanned
+cassandra_multiget_reads
+cassandra_multiget_rows_read
 ```
