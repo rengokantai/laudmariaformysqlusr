@@ -119,3 +119,40 @@ text->BLOB,VARCHAR(utf8)
 uuid->CHAR(36)
 counter->BININT(readonly)
 ```
+
+######Cass's Dynamic columns
+blob data type, any field name  
+set
+```
+DYNAMIC_COLUMN_STORAGE=yes
+```
+
+connect mariadb to cassandra, or use SET cassandra_default_thrift_host=...
+```
+cassandra_default_thrift_host
+```
+
+sample table:
+```
+SET cassandra_default_thrift_host='';
+create table cass_tbl{
+inv_id primary key,
+type varchar(20) charset latin1,
+brand varchar(20) charset utf8,
+price varbinary(10),
+title blob,
+other_attr blob dynamic_column_storage=yes
+) engine=cassandra
+column_family='my_family'
+keyspace='my_space';
+```
+
+####3 Querying data
+```
+cassandra_rnd_batch_size //default=10000
+```
+
+batched key access
+```
+optimizer_switch='join_cache_hashed=on'
+```
