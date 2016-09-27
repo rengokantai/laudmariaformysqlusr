@@ -148,6 +148,8 @@ keyspace='my_space';
 ```
 
 ####3 Querying data
+[cassandra status vars](https://mariadb.com/kb/en/mariadb/cassandra-status-variables/)
+[cassandra system vars](https://mariadb.com/kb/en/mariadb/cassandra-system-variables)
 ```
 cassandra_rnd_batch_size //default=10000
 ```
@@ -155,4 +157,13 @@ cassandra_rnd_batch_size //default=10000
 batched key access
 ```
 optimizer_switch='join_cache_hashed=on'
+```
+
+set
+```
+join_cache_level=7/8
+```
+######Batched key access
+```
+cassandra_multiget_batch_size //set batch size
 ```
